@@ -4,8 +4,6 @@ import (
 	"pen-pal/api"
 	"pen-pal/config"
 	"pen-pal/store"
-
-	_ "github.com/lib/pq"
 )
 
 func main() {

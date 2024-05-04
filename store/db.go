@@ -3,6 +3,8 @@ package store
 import (
 	"database/sql"
 	"log"
+
+	_ "github.com/lib/pq" // Import the driver anonymously; required for initialization
 )
 
 // Load initializes a new Config struct with values from environment variables
@@ -10,9 +12,8 @@ func Init(ConnectionString string) *sql.DB {
 
 	db, err := sql.Open("postgres", ConnectionString)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("SQL Open ERROR", err)
 	}
-
 	// Test the database connection
 	err = db.Ping()
 	if err != nil {
