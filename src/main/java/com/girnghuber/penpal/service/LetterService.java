@@ -17,7 +17,8 @@ public class LetterService {
     LetterRepository letterRepository;
 
     public List<Letter> getLettersForUser(String userId) {
-        return letterRepository.listAll();
+        //return letterRepository.listAll();
+        return letterRepository.find("toUserId", userId).stream().toList();
     }
 
     @Transactional

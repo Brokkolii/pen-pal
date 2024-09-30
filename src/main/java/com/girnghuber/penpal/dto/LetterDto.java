@@ -7,7 +7,7 @@ import java.util.Date;
 public class LetterDto {
     public Long id;
     public String fromUserName;
-    public String toUserName;
+    public String toUserId;
     public String message;
     public Date sentDate;
     public Boolean read;
