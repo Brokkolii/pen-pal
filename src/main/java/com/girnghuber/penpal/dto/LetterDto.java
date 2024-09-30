@@ -1,7 +1,5 @@
 package com.girnghuber.penpal.dto;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 import java.util.Date;
 
 public class LetterDto {

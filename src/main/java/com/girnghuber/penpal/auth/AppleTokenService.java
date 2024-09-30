@@ -9,7 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class AppleTokenService {
 
-    public DecodedJWT validateAppleToken(String token) throws Exception {
+    public DecodedJWT validateAppleToken(String token) {
         RSAKeyProvider keyProvider = new AppleKeyProvider();
         Algorithm algorithm = Algorithm.RSA256(keyProvider);
         return JWT.require(algorithm)
