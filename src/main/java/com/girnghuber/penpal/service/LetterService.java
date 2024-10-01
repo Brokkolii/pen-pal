@@ -13,6 +13,8 @@ import java.util.List;
 @ApplicationScoped
 public class LetterService {
 
+    private static final Integer DELIVERY_DURATION_HOURS = 1;
+
     @Inject
     LetterRepository letterRepository;
 
@@ -28,7 +30,7 @@ public class LetterService {
     public Date calcDeliveryDate(Date sentDate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(sentDate);
-        calendar.add(Calendar.DAY_OF_YEAR, 3);
+        calendar.add(Calendar.HOUR_OF_DAY, DELIVERY_DURATION_HOURS);
         return calendar.getTime();
     }
 }
