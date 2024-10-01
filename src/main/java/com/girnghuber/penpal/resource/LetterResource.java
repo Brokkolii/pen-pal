@@ -42,11 +42,25 @@ public class LetterResource {
     @Path("/send")
     public LetterDto sendLetter(SendLetterDto sendLetterDto) {
         Letter letter = letterMapper.sendLetterDtoToLetter(sendLetterDto);
-        letter.fromUserId = securityContext.getUserPrincipal().getName();
-        letter.read = false;
-        letter.sentDate = new Date();
-        letter.deliveryDate = letterService.calcDeliveryDate(letter.sentDate);
-        letterService.sendLetter(letter);
+        letterService.sendLetter(letter, securityContext.getUserPrincipal().getName());
         return letterMapper.letterToLetterDto(letter);
+    }
+
+    @PUT
+    @Path("/{letterId}/read")
+    public void markLetterAsRead(@PathParam("letterId") Long letterId) {
+        letterService.markLetterAsRead(letterId, securityContext.getUserPrincipal().getName());
+    }
+
+    @PUT
+    @Path("/{letterId}/unread")
+    public void markLetterAsUnread(@PathParam("letterId") Long letterId) {
+        letterService.markLetterAsUnread(letterId, securityContext.getUserPrincipal().getName());
+    }
+
+    @GET
+    @Path("inDelivery")
+    public Boolean letterIsOnTheWay() {
+        return letterService.letterIsOnTheWay(securityContext.getUserPrincipal().getName());
     }
 }
