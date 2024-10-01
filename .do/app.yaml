@@ -1,0 +1,8 @@
+name: pen-pal-api
+services:
+  - dockerfile_path: src/main/docker/Dockerfile.jvm
+    github:
+      branch: main
+      deploy_on_push: true
+      repo: Brokkolii/pen-pal
+    name: pen-pal-api
