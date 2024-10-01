@@ -13,22 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Java JDK 17
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      # Set up Docker Buildx (optional, but recommended for multi-platform builds)
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Log in to GitHub Container Registry (GHCR)
       - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
@@ -36,26 +32,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GH_TOKEN }}
 
-      # Build the Docker image
       - name: Build Docker image
         run: |
           ./mvnw clean package -Dquarkus.container-image.build=true
 
-      # Tag the Docker image
       - name: Tag Docker image
         run: |
           docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:latest
 
-      # Push the Docker image to GHCR
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/brokkolii/pen-pal:latest
-          echo "IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/brokkolii/pen-pal:latest | cut -d '@' -f 2)" >> $GITHUB_ENV
 
       - name: Deploy on DigitalOcean
         uses: digitalocean/app_action/deploy@v2
-        env:
-          SAMPLE_DIGEST: ${{ env.IMAGE_DIGEST }}
         with:
           app_name: pen-pal-api
           token: ${{ secrets.DO_TOKEN }}
