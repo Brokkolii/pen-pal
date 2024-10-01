@@ -23,16 +23,6 @@ public class LetterResource {
     @Inject
     LetterMapper letterMapper;
 
-    @Context
-    io.vertx.core.http.HttpServerRequest httpRequest;
-
-    @GET
-    @Path("/ip")
-    public String getIp() {
-        return httpRequest.remoteAddress().toString();
-    }
-
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/inbox")
