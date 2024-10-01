@@ -14,5 +14,6 @@ public class Letter extends PanacheEntity {
     public String toUserId;
     public String message;
     public Date sentDate;
+    public Date deliveryDate;
     public Boolean read;
 }

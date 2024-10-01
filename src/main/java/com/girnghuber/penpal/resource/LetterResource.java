@@ -45,6 +45,7 @@ public class LetterResource {
         letter.fromUserId = securityContext.getUserPrincipal().getName();
         letter.read = false;
         letter.sentDate = new Date();
+        letter.deliveryDate = letterService.calcDeliveryDate(letter.sentDate);
         letterService.sendLetter(letter);
         return letterMapper.letterToLetterDto(letter);
     }
