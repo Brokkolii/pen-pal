@@ -58,5 +58,5 @@ jobs:
         env:
           SAMPLE_DIGEST: ${{ steps.push.outputs.digest }}
         with:
-          token: ${{ secrets.YOUR_DIGITALOCEAN_ACCESS_TOKEN_VARIABLE_NAME }}
+          token: ${{ secrets.DO_TOKEN }}
 
