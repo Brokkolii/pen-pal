@@ -50,8 +50,6 @@ jobs:
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/brokkolii/pen-pal:${{ github.sha }}
-          
-           - name: Deploy the app
 
       - name: Deploy on DigitalOcean
         uses: digitalocean/app_action/deploy@v2
