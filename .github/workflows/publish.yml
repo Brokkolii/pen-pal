@@ -50,15 +50,3 @@ jobs:
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/brokkolii/pen-pal:latest
-
-      - name: Install doctl
-        run: |
-          wget https://github.com/digitalocean/doctl/releases/latest/download/doctl-1.95.0-linux-amd64.tar.gz
-          tar xf doctl-1.95.0-linux-amd64.tar.gz
-          sudo mv doctl /usr/local/bin
-          doctl version
-
-      - name: Redeploy the app on DigitalOcean
-        run: doctl apps redeploy <APP_ID>
-        env:
-          DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.YOUR_DIGITALOCEAN_ACCESS_TOKEN_VARIABLE_NAME }}

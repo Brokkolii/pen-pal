@@ -13,7 +13,7 @@ import java.util.List;
 @ApplicationScoped
 public class LetterService {
 
-    private static final Integer DELIVERY_DURATION_HOURS = 1;
+    private static final Integer DELIVERY_DURATION_HOURS = 0;
 
     @Inject
     LetterRepository letterRepository;
