@@ -50,3 +50,12 @@ jobs:
       - name: Push Docker image to GHCR
         run: |
           docker push ghcr.io/brokkolii/pen-pal:latest
+          echo "IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/brokkolii/pen-pal:latest | cut -d '@' -f 2)" >> $GITHUB_ENV
+
+      - name: Deploy on DigitalOcean
+        uses: digitalocean/app_action/deploy@v2
+        env:
+          SAMPLE_DIGEST: ${{ env.IMAGE_DIGEST }}
+        with:
+          app_name: pen-pal-api
+          token: ${{ secrets.DO_TOKEN }}
