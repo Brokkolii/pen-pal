@@ -41,14 +41,10 @@ jobs:
         run: |
           ./mvnw clean package -Dquarkus.container-image.build=true
 
-      # Print Docker images
-      - name: Print Docker images
-        run: docker images
-
       # Tag the Docker image
       - name: Tag Docker image
         run: |
-          docker tag runner/pen-pal:1.0.0-SNAPSHOT ghcr.io/brokkolii/pen-pal:latest
+          docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:latest
 
       # Push the Docker image to GHCR
       - name: Push Docker image to GHCR
