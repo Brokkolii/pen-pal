@@ -44,12 +44,12 @@ jobs:
       # Tag the Docker image
       - name: Tag Docker image
         run: |
-          docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:{{ github.sha }}
+          docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:${{ github.sha }}
 
       # Push the Docker image to GHCR
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/brokkolii/pen-pal:{{ github.sha }}
+          docker push ghcr.io/brokkolii/pen-pal:${{ github.sha }}
           
            - name: Deploy the app
 
