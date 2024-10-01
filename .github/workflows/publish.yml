@@ -44,18 +44,9 @@ jobs:
       # Tag the Docker image
       - name: Tag Docker image
         run: |
-          docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:${{ github.sha }}
+          docker tag runner/pen-pal:1.0.0 ghcr.io/brokkolii/pen-pal:latest
 
       # Push the Docker image to GHCR
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/brokkolii/pen-pal:${{ github.sha }}
-          echo "IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/brokkolii/pen-pal:${{ github.sha }} | cut -d '@' -f 2)" >> $GITHUB_ENV
-
-      - name: Deploy on DigitalOcean
-        uses: digitalocean/app_action/deploy@v2
-        env:
-          SAMPLE_DIGEST: ${{ env.IMAGE_DIGEST }}
-        with:
-          token: ${{ secrets.DO_TOKEN }}
-
+          docker push ghcr.io/brokkolii/pen-pal:latest
