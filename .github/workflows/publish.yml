@@ -1,0 +1,53 @@
+name: Build and Push Docker Image to GHCR
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Java JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Set up Docker Buildx (optional, but recommended for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Log in to GitHub Container Registry (GHCR)
+      - name: Log in to GHCR
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_TOKEN }}
+
+      # Build the Docker image
+      - name: Build Docker image
+        run: |
+          ./mvnw clean package -Dquarkus.container-image.build=true
+
+      # Tag the Docker image
+      - name: Tag Docker image
+        run: |
+          docker tag brokkolii/pen-pal:1.0.0-SNAPSHOT ghcr.io/${{ github.repository_owner }}/pen-pal:latest
+
+      # Push the Docker image to GHCR
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository_owner }}/pen-pal:latest
+
