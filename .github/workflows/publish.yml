@@ -44,10 +44,10 @@ jobs:
       # Tag the Docker image
       - name: Tag Docker image
         run: |
-          docker tag brokkolii/pen-pal:1.0.0-SNAPSHOT ghcr.io/${{ github.repository_owner }}/pen-pal:latest
+          docker tag brokkolii/pen-pal:1.0.0-SNAPSHOT ghcr.io/brokkolii/pen-pal:latest
 
       # Push the Docker image to GHCR
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/pen-pal:latest
+          docker push ghcr.io/brokkolii/pen-pal:latest
 
