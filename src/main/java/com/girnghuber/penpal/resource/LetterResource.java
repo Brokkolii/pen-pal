@@ -6,14 +6,12 @@ import com.girnghuber.penpal.entity.Letter;
 import com.girnghuber.penpal.mapper.LetterMapper;
 import com.girnghuber.penpal.service.LetterService;
 import io.quarkus.security.Authenticated;
-import io.vertx.ext.web.RoutingContext;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.SecurityContext;
 
-import java.util.Date;
 import java.util.List;
 
 @Path("/letter")
@@ -25,14 +23,13 @@ public class LetterResource {
     @Inject
     LetterMapper letterMapper;
 
-    @Inject
-    RoutingContext context;
+    @Context
+    io.vertx.core.http.HttpServerRequest httpRequest;
 
     @GET
     @Path("/ip")
     public String getIp() {
-        String ip = context.request().host();
-        return ip;
+        return httpRequest.remoteAddress().toString();
     }
 
 
